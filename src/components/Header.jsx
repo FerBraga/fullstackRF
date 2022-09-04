@@ -1,16 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
+import { getBySearch } from '../utils';
 
-function Header({titulo}) {
+function Header({setEstado}) {
     const [estado, atEstado] = useState('');
-    
-    const handleChange = ({target}) => {
-        atEstado(target.value)
+
+    const busca = () => {
+     getBySearch(estado).then(({data}) => setEstado(data))
     }
 
+   
   return (
       <div className="header">
-       <header>{titulo}
+       <header>
         <label>
           <input 
           type='text'
@@ -18,9 +20,15 @@ function Header({titulo}) {
           name='search'
           value={estado}
           placeholder='Buscar por um produto'
-          onChange={handleChange}
+          onChange={(e) =>  atEstado(e.target.value)}
           >
           </input>
+          <button 
+          type='button'
+          onClick={busca}
+          >
+          pesquisar
+          </button>
         </label>
        </header> 
       </div>

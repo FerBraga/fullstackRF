@@ -1,23 +1,23 @@
+// import axios from 'axios';
 import React  from 'react';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Products from '../components/Products';
-import { requestData  } from '../utils';
+import { getAll } from '../utils';
 
 function ProductsBoard () {
-  const [list, setEstado] = useState('');
+  const [list, setEstado] = useState([]);
 
   useEffect(() => {
-    requestData('/produtos').then((response) => setEstado(response));
-    
-  }, []);
+    getAll().then(({data}) => setEstado(data))
+}, []);
 
 
   return (
-  <>
-   <Header />
-   <Products list={list} />
-  </>
+   <>
+    <Header setEstado={setEstado} />
+    <Products list={list} />
+   </>
   );
 }
 
